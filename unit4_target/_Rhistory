@@ -1,0 +1,263 @@
+library(class)
+data(iris)
+#(1)設定亂數種子
+set.seed(123)
+#(2)取得資料筆數
+n <- nrow(iris)
+#(3)取得訓練樣本數的index，70%建模，30%驗證
+train_idx <- sample(seq_len(n), size = round(0.7 * n))
+#(4)產出訓練資料與測試資料
+traindata <- iris[train_idx,]
+testdata <- iris[ - train_idx,]
+train_y <- traindata[,5]
+test_y <- testdata[,5]
+#(5)設定K，K通常可以設定為資料筆數的平方根
+k_set <- as.integer(sqrt(n)) + 1
+#(6)建立模型
+pred <- knn(train = traindata[-5], test = testdata[-5], cl = train_y, k = k_set)
+#(7) 混淆矩陣計算準確度
+message("準確度：",sum(diag(table(test_y,pred))) / sum(table(test_y,pred)) *100,"%")
+# 一次安裝所有packages
+packages <- c("C50","tree", "rpart","randomForest")
+for (i in packages){  install.packages(i) }
+# 一次安裝所有packages
+packages <- c("C50","tree", "rpart","randomForest")
+#一次載入packages
+sapply(packages, FUN = library, character.only = TRUE)
+search()
+#訓練樣本70%, 測試樣本30%
+install.packages("caret")
+library(caret)
+test <- read.csv("E:/DataMining/titanic/test.csv", header = T, stringsAsFactors = F)
+train <- read.csv("E:/DataMining/titanic/train.csv", header = T, stringsAsFactors = F)
+summary(test)
+str(test)
+View(test)
+is.na(test)
+test[test$Cabin == "",]
+library(mice)
+complete.cases(test)
+create_report(test)
+create_report(train)
+# https://www.kaggle.com/mrisdal/exploring-survival-on-the-titanic/report
+# https://kknews.cc/zh-tw/other/oolj96m.html
+# https://zhuanlan.zhihu.com/p/29130905
+# https://officeguide.cc/r-logistic-regression-titanic-survival-analysis/
+# 加載相應包
+library('ggplot2') # 可視化
+library('ggthemes') # 可視化
+library('scales') # 可視化
+library('dplyr') # 數據處理
+library('mice') # 缺失值填補
+library('randomForest') # 建模
+#初步觀察數據
+# 檢查數據
+str(train)
+str(test)
+head(train)
+head(test)
+#可以看到，除了Survived欄位不同外，其他欄位均相同。合併訓練集與測試集，為下一步數據清洗做準備
+full <- bind_rows(train, test)
+str(full)
+summary(full)
+# 1.數據清洗 ----
+# a. 觀察姓名變量----
+# 從乘客名字中提取頭銜
+full$Title <- gsub('(.*, )|(\\..*)', '', full$Name)
+# 查看按照性別劃分的頭銜數量?
+table(full$Sex, full$Title)
+# 對於那些出現頻率較低的頭銜合併為一類
+rare_title <- c('Dona', 'Lady', 'the Countess','Capt', 'Col', 'Don', 'Dr', 'Major', 'Rev', 'Sir', 'Jonkheer')
+# 對於一些稱呼進行重新指定（按含義） 如mlle, ms指小姐, mme 指女士
+full$Title[full$Title =='Mlle']<- 'Miss'
+full$Title[full$Title =='Ms'] <- 'Miss'
+full$Title[full$Title =='Mme']<- 'Mrs'
+full$Title[full$Title %in% rare_title] <- 'Rare Title'
+# 重新查看替換後的情況
+table(full$Sex, full$Title)
+# 最後從乘客姓名中，提取姓氏
+full$Surname <- sapply(full$Name, function(x) strsplit(x, split = '[,.]')[[1]][1])
+nlevels(factor(full$Surname))
+# b.家庭情況是否會影響生存結果?----
+# 目前為止我們已經處理完乘客姓名這一變量，並從其中提取了一些新的變量。
+# 下一步考慮衍生一些家庭相關的變量
+# 首先，生成家庭人數family size這一變量。
+# 可以基於已有變量SubSp和Parch（具體含義參照上面）
+# 生成家庭人數變量，包括自己在內
+full$Fsize <- full$SibSp + full$Parch + 1
+# 生成一個家庭變量：以姓_家庭人數 格式
+full$Family <- paste(full$Surname, full$Fsize, sep='_')
+# 使用 ggplot2 繪製家庭人數與生存情況之間的關係
+ggplot(full[1:891,], aes(x = Fsize, fill = factor(Survived))) +
+geom_bar(stat='count', position='dodge') +
+scale_x_continuous(breaks=c(1:11)) +
+labs(x = 'Family Size') +
+theme_few()
+# https://rstudio-pubs-static.s3.amazonaws.com/329677_8f579b9e46284caeb9d3a72b7fdb7ac3.html
+library(ggplot2)
+ggplot(full,aes(x=factor(Fsize),fill=factor(Survived)))+
+geom_bar()+
+geom_text(aes(label=..count..),stat="count",position=position_stack(0.5))
+ggplot(full,aes(x=factor(Fsize),fill=factor(Survived)))+
+geom_bar(position="fill")+
+geom_text(aes(label=scales::percent(..count../sum(..count..))),
+stat='count',position=position_fill(vjust=0.5))
+percentData <- full %>% group_by(Fsize) %>% count(Survived) %>%
+mutate(ratio=scales::percent(n/sum(n)))
+ggplot(full,aes(x=factor(Fsize),fill=factor(Survived)))+
+geom_bar(position="fill")+
+geom_text(data=percentData, aes(y=n,label=ratio),
+position=position_fill(vjust=0.5))
+# 通過圖形我們可以明顯發現以下特點：
+# - 1. 個人上船和家庭人數>4人的家庭的存活人數小於死亡人數
+# - 2. 家庭人數size在[2:4]的存活人數要高於死亡人數
+# 因此我們可以將家庭人數變量進行分段合併，
+# 明顯的可以分為3段：個人，小家庭，大家庭，由此生成新變量。
+ftable(full[1:891,c('Survived','Pclass','Sex')],
+row.vars = c('Sex','Survived'),
+col.vars = 'Pclass')
+table(full[1:891,c('Pclass','Sex','Survived')])
+mosaicplot(table(full[1:891,c('Pclass','Sex','Survived')]),
+sort=c(2, 1, 3), dir=c('v', 'h', 'h'), color=T, off=3)
+# datasets::Titanic----
+mosaicplot(Titanic, main = "Survival on the Titanic", color = TRUE)
+# https://en.wikipedia.org/wiki/Mosaic_plot
+# https://commons.wikimedia.org/wiki/File:Mosaic_titanic_independent.png
+# Mosaic_plot - wiki, example table
+ftable(apply(Titanic, c('Sex','Survived','Class'), sum))
+ftable(apply(Titanic, c(2,4,1), sum))
+# Mosaic_plot - wiki, example-----
+par(mfrow=c(1,2))
+# png("mosaic_titanic_independent.png", width=800, height=480)
+titanic <- apply(Titanic, c(1,2,4), sum)
+# titanic <- apply(Titanic, c('Class','Sex','Survived'), sum)
+mosaicplot(titanic, sort=c(2, 1, 3), dir=c('v', 'h', 'h'), color=T, off=3)
+independent <- outer(outer(apply(titanic, 1, sum), apply(titanic,2, sum)), apply(titanic, 3, sum))/sum(titanic)^2
+dimnames(independent) <- dimnames(titanic)
+mosaicplot(independent, sort=c(2, 1, 3), dir=c('v', 'h', 'h'), color=T, off=3)
+# dev.off()
+# 離散化
+full$FsizeD[full$Fsize == 1] <- 'singleton'
+full$FsizeD[full$Fsize > 1 & full$Fsize <= 4]<- 'small'
+full$FsizeD[full$Fsize > 4] <- 'large'
+# 通過馬賽克圖（mosaic plot）查看家庭規模與生存情況之間關係
+mosaicplot(table(full$FsizeD,full$Survived), main='Family Size by Survival', shade=TRUE)
+# 從圖上也可以顯而易見的觀察出來，個人與大家庭不利於生存下來，
+# 而相對的小家庭當中生存率相對較高
+# c. 試著生成更多變量
+# 可以發現在乘客客艙變量passenger cabin也存在一些有價值的信息如客艙層數deck
+# 可以看出這一變量有很多缺失值
+full$Cabin[1:28]
+strsplit(full$Cabin[2], NULL)
+View(strsplit(full$Cabin[2], NULL))
+acc <- read.table(acc.txt, sep = "\t")
+acc <- read.table("acc.txt", sep = "\t")
+View(acc)
+View(acc)
+colnames(acc) <- c("deviceID", "sensorName", "x", "y", "z")
+View(acc)
+plot(acc$x)
+plot(acc$x, type = "b")
+plot(acc$x, type = "l")
+plot(acc$y, type = "l", add=T)
+plot(acc$x, type = "l")
+plot(acc$y, add=T, type = "l")
+plot(acc$x, type = "l")
+plot(acc, add=T, type = "l")
+plot(acc$x, acc$y, type = "l")
+plot(acc$x, type = "l")
+plot(acc, add=T)
+plot(acc$x, type = "l")
+plot(acc$y, add=T)
+plot(acc$x, type = "l")
+line(acc$y, add=T, type = "l")
+linea(acc$y, add=T, type = "l")
+linea(acc$y, type = "l")
+linea(acc$y, col = "blue")
+lines(acc$y, col = "blue")
+plot(acc$x, type = "l")
+lines(filter(acc$x), col = "blue")
+rep(1/20, 20)
+x <- 1:100
+filter(x, rep(1, 3))
+filter(x, rep(1, 3), sides = 1)
+filter(x, rep(1, 3), sides = 1, circular = TRUE)
+filter(presidents, rep(1, 3))
+lines(filter(acc$x, rep(1/20, 20), sides = 1), col = "blue")
+lines(filter(acc$x, rep(1/20, 20), sides = 2), col = "red")
+rm(x)
+plot(filter(acc$x, rep(1/20, 20), sides = 1), col = "blue")
+plot(filter(acc$x, rep(1/20, 20), sides = 2), col = "red")
+filter(acc$x, rep(1/20, 20), sides = 1)
+x <- 1:100
+x$f1 <- filter(x, rep(1, 3))
+View(x)
+x <- 1:100
+data.frame(x)
+x <- data.frame(x)
+x$f1 <- filter(x, rep(1, 3))
+x$f2 <- filter(x, rep(1, 3), sides = 1)
+x$f3 <- filter(x, rep(1, 3), sides = 1, circular = TRUE)
+View(x)
+filter(x, rep(1, 3), sides = 1, circular = TRUE)
+filter(x, rep(1, 3), sides = 1, circular = TRUE)
+x <- 1:100
+y$f1 <- filter(x, rep(1, 3))
+y <- data.frame(y)
+y <- filter(x, rep(1, 3))
+y<-data.frame(y)
+y$f2 <- filter(x, rep(1, 3), sides = 1)
+y$f3 <- filter(x, rep(1, 3), sides = 1, circular = TRUE)
+filter(presidents, rep(1, 3))
+presidents
+View(y)
+plot(y)
+plot(y$y, y$f2)
+acc.x <- data.frame(acc$x)
+acc.x <- filter(acc$x, rep(1/20, 20), sides = 1)
+acc.x <- data.frame(acc$x)
+acc.x$f1 <- filter(acc$x, rep(1/20, 20), sides = 1)
+acc.x$f1 <- filter(acc$x, rep(1/20, 20), sides = 2)
+View(acc.x)
+acc.x$f1 <- filter(acc$x, rep(1/20, 20), sides = 2)
+acc.x$f2 <- filter(acc$x, rep(1/20, 20), sides = 2)
+par(c(1,3))
+par(mfrow=c(1,3))
+plot(acc$x, type = "l")
+par(mfrow=c(3,1))
+plot(acc$x, type = "l")
+lines(filter(acc$x, rep(1/20, 20), sides = 1), col = "blue")
+lines(filter(acc$x, rep(1/20, 20), sides = 2), col = "red")
+plot(acc$y, type = "l")
+lines(filter(acc$y, rep(1/20, 20), sides = 1), col = "blue")
+lines(filter(acc$y, rep(1/20, 20), sides = 2), col = "red")
+plot(acc$z, type = "l")
+lines(filter(acc$z, rep(1/20, 20), sides = 1), col = "blue")
+lines(filter(acc$z, rep(1/20, 20), sides = 2), col = "red")
+ori <- read.table("orient.txt", sep = "\t")
+View(ori)
+View(acc)
+colnames(ori) <- c("derviceID", "sensorName", "1", "2", "3")
+View(ori)
+View(ori[5])
+colnames(ori[5])
+colnames(ori[6]) <- "4"
+View(ori)
+colnames(ori[6])
+colnames(ori[6]) <- c("4")
+View(ori)
+colnames(ori)
+colnames(ori)[6]
+colnames(ori)[6] <- "4"
+colnames(ori)
+View(ori)
+plot(ori$4)
+plot("ori$4")
+plot(ori$1, type="l")
+colnames(ori)[3:6]
+colnames(ori)[3:6] <- c("V1","V2","V3","V4")
+View(ori)
+plot("ori$V4")
+str(ori)
+plot(ori$V4)
+plot(ori$V4, type = "l")

@@ -1,0 +1,512 @@
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1 temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+vif.table <- as.data.frame(vif.table) # 轉化為數據框
+return(vif.table) #返回值
+}
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+#vif.table[i,1] <- variable[i] # 標註變量
+#vif.table[i,2] <- round(1/(1 temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+#colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+#vif.table <- as.data.frame(vif.table) # 轉化為數據框
+#return(vif.table) #返回值
+}
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+#vif.table[i,2] <- round(1/(1 temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+#colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+#vif.table <- as.data.frame(vif.table) # 轉化為數據框
+#return(vif.table) #返回值
+}
+View(VIF)
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1 temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+#colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+#vif.table <- as.data.frame(vif.table) # 轉化為數據框
+#return(vif.table) #返回值
+}
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+#vif.table[i,2] <- round(1/(1 temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+#colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+#vif.table <- as.data.frame(vif.table) # 轉化為數據框
+#return(vif.table) #返回值
+}
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, '',data='',sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1-temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+vif.table <- as.data.frame(vif.table) # 轉化為數據框
+return(vif.table) #返回值
+}
+VIF(names(iris_vif), iris_vif, "iris_vif")
+iris_vif <- iris[-5]
+VIF(names(iris_vif), iris_vif, "iris_vif")
+View(iris_vif)
+VIF(names(iris_vif), iris_vif, "iris_vif")
+iris_vif$Sepal.Length
+View(VIF)
+VIF <- function(variable,data,data_name)
+{
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums) #循環計算機各個變數的 VIF
+{
+text=""
+for(ii in variable[-i])
+{
+text=paste(text,ii,sep="+")
+}
+text=paste(text, ",data=",sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1-temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+vif.table <- as.data.frame(vif.table) # 轉化為數據框
+return(vif.table) #返回值
+}
+iris_vif <- iris[-5]
+VIF(names(iris_vif), iris_vif, "iris_vif")
+setwd("e:/DataMining")
+dir()
+VIF(names(iris_vif), iris_vif, "iris_vif")
+VIF <- function(variable,data,data_name)
+{
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums) #循環計算機各個變數的 VIF
+{
+text=""
+for(ii in variable[-i])
+{
+text=paste(text,ii,sep="+")
+}
+text=paste(text, ",data=",sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1-temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+vif.table <- as.data.frame(vif.table) # 轉化為數據框
+return(vif.table) #返回值
+}
+VIF(names(iris_vif), iris_vif, "iris_vif")
+VIF <- function(variable,data,data_name){
+var.nums <- length(variable) # 或去變數數量
+vif.table <- matrix(,nrow=var.nums,ncol=2) # 用於儲存計算結果
+for(i in 1:var.nums){ #循環計算機各個變數的 VIF
+text=""
+for(ii in variable[-i]){
+text=paste(text,ii,sep="+")
+}
+text=paste(text, ",data=",sep="")
+text=paste(text,data_name,sep="")
+text=paste(variable[i],substr(text, 2, nchar(text)),sep="~")
+text=paste("temp.lm <- lm(",text,sep="")
+text=paste(text,")",sep="")
+eval(parse(text=text)) #執行 lm()
+temp.d <- summary(temp.lm) # 取得 r2
+vif.table[i,1] <- variable[i] # 標註變量
+vif.table[i,2] <- round(1/(1-temp.d$r.squared),2) # 計算 VIF 顯示兩位小數
+}
+colnames(vif.table) <- c("Var.", "VIF") # 給 Header
+vif.table <- as.data.frame(vif.table) # 轉化為數據框
+return(vif.table) #返回值
+}
+iris_vif <- iris[-5]
+VIF(names(iris_vif), iris_vif, "iris_vif")
+source("trycatch2.R", echo = TRUE)
+setwd("E:/DataMining/unit2_data_stucture/")
+setwd("E:/DataMining/unit2_data_stucture")
+setwd("E:/DataMining/unit2_data_structure/")
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE, fileEncoding = "UTF-8")
+source("trycatch2.R", echo = TRUE)
+View(VIF)
+source("trycatch2.R", echo = TRUE)
+source("trycatch1.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+data <- c(1,2,3,,6,3)
+scale(data,center = T, scale = T)
+data <- c(1,2,3,6,3)
+scale(data,center = T, scale = T)
+scale(data,center = T, scale = F)
+source("trycatch2.R", echo = TRUE)
+rm(a,x,z)
+rm(a,x,z)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+source("trycatch2.R", echo = TRUE)
+rm(a,x)
+source("trycatch2.R", echo = TRUE)
+rm(a,x,z)
+source("trycatch2.R", echo = TRUE)
+rm(a,x)
+scale(data,center = T, scale = F)
+attr(,"scaled:center")
+scale(data,center = T, scale = T)
+attributes(a)$'scaled:center'
+a <- c(1,2,3,6,3)
+attributes(a)$'scaled:center'
+attributes(a)
+attributes(a)$'scaled:center'
+a <- scale(data,center = T, scale = T)
+attributes(a)
+attributes(a)$'scaled:center'
+tmp <- c(2,3,8,NA,4,NA,9,12,NA)
+is.na(tmp)
+is.na(test)
+any(is.na(tmp))
+sum(is.na(tmp))
+is.nan(0/0)
+is.infinite(1/0)
+summary(tmp)
+is.na(test)
+is.nan(test)
+test == 0
+test == ""
+test[test == "","Cabin"]
+test[test == "","Cabin"]
+test[test$Cabin == "","Cabin"]
+test[test$Cabin == "",]
+install.packages("mice")
+library(mice)
+install.packages("missForest")
+library(missForest)
+data <- prodNA(iris, noNA = 0.05)
+data
+complete.cases(data)
+complete.cases(test)
+complete.cases(data)
+complete.cases(data)
+summary(data)
+summary(data)
+install.packages("VIM")
+library(VIM)
+aggr_plot <- aggr(data, col = c('navyblue', 'red'), numbers = T, sortVars = T,
+labels=names(data),cex.axis=7,gap=3,
+ylab=c("Histogram of missing data", "Pattern"))
+aggr_plot <- aggr(data, col = c('navyblue', 'red'), numbers = T, sortVars = T,
+labels=names(data),cex.axis=7,gap=3,
+ylab=c("Histogram of missing data", "Pattern"))
+aggr_plot <- aggr(data, col = c('navyblue', 'red'), numbers = T, sortVars = T,
+labels=names(data),cex.axis=.7,gap=3,
+ylab=c("Histogram of missing data", "Pattern"))
+str(data)
+new_data <- data[complete.cases(data),]
+summary(data)
+summary(new_data)
+View(new_data)
+complete.cases(test)
+test[test$Cabin == "",]
+aggr_plot <- aggr(data, col = c('navyblue', 'red'), numbers = T, sortVars = T,
+labels=names(data),cex.axis=.7,gap=3,
+ylab=c("Histogram of missing data", "Pattern"))
+View(data)
+View(test)
+new_data1.mean_col_1 <- mean(new_data1[,1], na.rm = T)
+new_data1.mean_col_2 <- mean(new_data1[,2], na.rm = T)
+new_data1.mean_col_3 <- mean(new_data1[,3], na.rm = T)
+new_data1.mean_col_4 <- mean(new_data1[,4], na.rm = T)
+# 取出各欄位中有遺漏值的"列位置"
+na.row1 <- is.na(new_data1[,1])
+na.row2 <- is.na(new_data1[,2])
+na.row3 <- is.na(new_data1[,3])
+na.row4 <- is.na(new_data1[,4])
+# 用平均數取代遺漏值
+new_data1[na.row1,1] <- new_data1.mean_col_1
+new_data1[na.row2,2] <- new_data1.mean_col_2
+new_data1[na.row3,3] <- new_data1.mean_col_3
+new_data1[na.row4,4] <- new_data1.mean_col_4
+# 算出各欄位的平均數            #na.rm = T表示不計算NA
+new_data1.mean_col_1 <- mean(new_data1[,1], na.rm = T)
+new_data1 <- data
+new_data1.mean_col_1 <- mean(new_data1[,1], na.rm = T)
+new_data1.mean_col_2 <- mean(new_data1[,2], na.rm = T)
+new_data1.mean_col_3 <- mean(new_data1[,3], na.rm = T)
+new_data1.mean_col_4 <- mean(new_data1[,4], na.rm = T)
+# 取出各欄位中有遺漏值的"列位置"
+na.row1 <- is.na(new_data1[,1])
+na.row2 <- is.na(new_data1[,2])
+na.row3 <- is.na(new_data1[,3])
+na.row4 <- is.na(new_data1[,4])
+# 用平均數取代遺漏值
+new_data1[na.row1,1] <- new_data1.mean_col_1
+new_data1[na.row2,2] <- new_data1.mean_col_2
+new_data1[na.row3,3] <- new_data1.mean_col_3
+new_data1[na.row4,4] <- new_data1.mean_col_4
+new_data1.mean_col_1
+na.row1
+str(data)
+summary(new_data)
+md.pattern(data)
+str(data)
+summary(data)
+summary(new_data)
+aggr_plot <- aggr(data, col = c('navyblue', 'red'), numbers = T, sortVars = T,
+labels=names(data),cex.axis=.7,gap=3,
+ylab=c("Histogram of missing data", "Pattern"))
+summary(new_data)
+View(new_data)
+View(new_data1)
+summary(new_data1)
+# 利用資料探勘模型來取代遺漏值
+mice.data <- mice(data,
+m = 3,
+maxit = 30,
+method = "cart",
+seed = 188)
+new_data1 <- complete(mice.data, 1)
+new_data2 <- complete(mice.data, 2)
+new_data3 <- complete(mice.data, 3)
+View(new_data1)
+# 使用隨機森林，進行遺漏值預測 ----
+mice.data <- mice(data,
+m = 1,
+maxit = 30,
+method = "rf",
+seed = 188)
+new_data1 <- complete(mice.data, 1)
+View(new_data)
+View(new_data1)
+data("cars")
+str(cars)
+summary(cars)
+cars$speed
+x1 = cars$speed
+new_cars_band = 1*(x1<12) + 2*(x1>=12&x1<15) + 3*(x1>=15)
+new_cars_band
+label = c('慢', '中', '快')
+new_cars_band = label[new_cars_band]
+new_cars_band
+new_cars <- cars
+new_cars <- within(new_cars,
+{
+speed_level <- NA
+speed_level[cars$speed<12] <- "慢"
+speed_level[cars$speed>=12 & cars$speed<15] <- "中"
+speed_level[cars$speed>=15] <- "快"
+}
+)
+head(new_cars,5)
+car_categ = c('一般轎車', '跑車')
+new_cars_band1 = 1*(new_cars_band %in% c('慢', '中')) + 2*(new_cars_band %in% c('快'))
+new_cars_band1 = car_categ[new_cars_band1]
+new_cars_band1
+new_cars <- transform(new_cars,
+new_var1 = new_cars$speed * new_cars$dist,
+new_var2 = new_cars$dist * 100
+)
+head(new_cars, 10)
+a <- data.frame(T_name=cc('Tony','Orozco','Justin '), Age = c(25,24,26))
+a <- data.frame(T_name=c('Tony','Orozco','Justin '), Age = c(25,24,26))
+b <- data.frame(T_name=c('Tony','Orozco','Justin', 'Carol'),
+Age = c(25,24,26),
+Salary = c(20000, 25000, 30000, 18000))
+b <- data.frame(T_name=c('Tony','Orozco','Justin', 'Carol'),
+Age = c(25,24,26),
+Salary = c(20000, 25000, 30000, 18000))
+b <- data.frame(T_name=c('Tony','Orozco','Justin', 'Carol'), Age = c(25,24,26), Salary = c(20000, 25000, 30000, 18000))
+b <- data.frame(T_name=c('Tony','Orozco','Justin', 'Carol'), Salary = c(20000, 25000, 30000, 18000))
+a
+b
+merge(a, b, by.x = "T_name", by.y = "T_name")
+# 課堂練習 -- 相關係數COR
+#製作兒童健檢資料
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+abline(cor)
+abline(reg=cor)
+abline(a=cor,b=1)
+abline(a=2,b=1)
+abline(a=100,b=1)
+abline(a=100,b=22)
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+cor(High,Weight)  #相關係數
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+High <- c( 120, 134, 110, 158, 100, 101, 140, 105)
+Weight <- sample(20:28,8)
+cor(High,Weight)  #相關係數
+plot(High, Weight)
+lmTrain <- lm(formula = Weight ~ High, data = data.frame(High, Weight))
+abline(reg = lmTrain$coefficients, col = "red", lwd = 1)#函數繪製輔助線
+data("airquality")
+head(airquality, 6)
+cor(airquality[,1:4], use = "pairwise")#產出兩兩相關的相關係數矩陣
+pairs(airquality[,1:4])#繪圖
